@@ -1,0 +1,114 @@
+---
+title: "BIOL2010 prac series one"
+output: 
+  learnr::tutorial:
+    progressive: TRUE
+    language:
+      en:
+        button:
+          continue: "continue"
+          previoustopic: "go back"
+          nexttopic: "continue"
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+
+library(DT)
+library(learnr)
+library(knitr)
+library(readxl) 
+library(tidyverse)
+
+dat_sample <- read_excel(path = "data/biol2010-prac-1-data-2026.xlsx",
+                         sheet = "sample_level")
+
+dat_macroinvert <- read_excel(path = "data/biol2010-prac-1-data-2026.xlsx",
+                              sheet = "macroinvert_level")
+
+```
+
+## Visions of data
+###
+Have a look at your aquatic macroinvertebrate data below!
+
+```{r view-data-macroinvert, echo=FALSE}
+
+datatable(dat_macroinvert,
+          rownames = FALSE,
+          options = list(dom = "lpt",
+                         scrollX = TRUE))
+
+```
+<br>
+Do you think this data is useful...and ready to use?
+
+###
+Ah, much nicer in a summarised form.
+
+```{r view-data-sample, echo=FALSE}
+
+datatable(dat_sample,
+          rownames = FALSE,
+          options = list(dom = "lpt",
+                         scrollX = TRUE))
+
+```
+<br>
+What plot could we use to visualise our data?
+
+###
+Let's turn your plot idea into code! 
+
+```{r plot-points, exercise=TRUE}
+
+ggplot(data = dat_sample) +
+  geom_SOMETHING(aes(x = PREDICTOR_VARIABLE,
+                      y = RESPONSE_VARIABLE,
+                      ymin = SOMETHING,
+                      ymax = SOMETHING),
+                  colour = "orange",
+                  size = 2, 
+                  linewidth = 0.5) +
+  scale_x_continuous(name = "something abiotic, I swear") +
+  scale_y_continuous(name = "goated (?) macroinvert community-level descriptor",
+                     limits = c(0, NA)) +
+  theme_classic() 
+
+```
+
+Once you've fixed the code above, you should now be looking at a _pretty_ plot --- but it's still missing a key scientific element.
+
+###
+Let's add a line to your plot --- __add a `geom_smooth(...)` layer in the code above__.
+
+You should now have a plot that is both _pretty_ and _scientifically complete_ --- how thrilling. Take a moment to copy this into your practical journal. 
+
+## Building a relationship 
+###
+How can we tell if there's a _significant_ relationship between nitrogen (total nitrogen concentration) and aquatic macroinvertebrates (community SIGNAL sensitivity score)? 
+
+```{r stats-linear-model, exercise=TRUE}
+
+scatter_plot_vibes <- SOME_TEST(RESP_VAR ~ PRED_VAR,
+                         data = dat_sample)
+
+summary(scatter_plot_vibes)
+
+```
+
+###
+What is the key conclusion from this statistical evidence?
+
+Can you confidently use the numbers in this evidence to describe the relationship?
+
+## Moving out
+
+You have now successfully:
+
+* made a good figure; 
+* written a caption for it;
+* conducted a statistical analysis; and
+* written an intepretation for it.
+
+Before exiting this tutorial, ensure that you have copied out anything required for your practical journal.
